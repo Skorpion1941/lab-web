@@ -105,7 +105,6 @@ import { storeToRefs } from "pinia";
 
 const jokesStore = useJokesStore();
 
-// Реактивные переменные
 const selectedType = ref("");
 const loading = ref(false);
 const error = ref(null);
@@ -113,7 +112,6 @@ const error = ref(null);
 const { types, randomJoke, jokesList } = storeToRefs(jokesStore);
 
 
-// Загрузка типов шуток при монтировании
 onMounted(async () => {
   try {
     await jokesStore.fetchTypes();
@@ -122,21 +120,15 @@ onMounted(async () => {
   }
 });
 
-// Получить случайную шутку
 const getRandomJoke = async () => {
   loading.value = true;
   error.value = null;
   
   try {
-    // Очищаем список перед загрузкой новой случайной шутки
-    jokesStore.clearJokesList();
-    
+    jokesStore.clearJokesList();    
     if (selectedType.value) {
-      // Получить случайную шутку по выбранному типу
       await jokesStore.fetchRandomJokeByType(selectedType.value);
     } else {
-      // Если тип не выбран - получаем случайную шутку без типа
-      // Используем общий эндпоинт random_joke
       await jokesStore.fetchRandomJokeByType('random');
     }
   } catch (err) {
@@ -146,20 +138,16 @@ const getRandomJoke = async () => {
   }
 };
 
-// Получить 10 шуток
 const getTenJokes = async () => {
   loading.value = true;
   error.value = null;
   
   try {
-    // Очищаем случайную шутку перед загрузкой списка
     jokesStore.clearRandomJoke();
     
     if (selectedType.value) {
-      // Получить 10 шуток по выбранному типу
       await jokesStore.fetchTenJokesByType(selectedType.value);
     } else {
-      // Если тип не выбран - получаем 10 случайных шуток
       await jokesStore.fetchTenJokesByType('random');
     }
   } catch (err) {
@@ -169,7 +157,6 @@ const getTenJokes = async () => {
   }
 };
 
-// Очистить все
 const clearAll = () => {
   jokesStore.clearAll();
   error.value = null;
