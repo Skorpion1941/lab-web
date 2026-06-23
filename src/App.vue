@@ -7,10 +7,10 @@
             >Главная</router-link
           >
           <router-link to="/posts" class="hover:text-blue-200 transition"
-            >Посты с API</router-link
+            >Шутки</router-link
           >
           <router-link to="/form" class="hover:text-blue-200 transition"
-            >Форма отправки</router-link
+            >Форма</router-link
           >
         </div>
       </div>
